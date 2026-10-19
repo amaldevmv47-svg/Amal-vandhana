@@ -325,25 +325,30 @@ body{
   canvas.addEventListener('touchend',()=>drawing=false);
   setupCanvas();
   window.addEventListener('resize',()=>{if(!cleared)setupCanvas()});
-  document.getElementById('rsvpForm').addEventListener('submit',e=>{
+  
+document.getElementById('rsvpForm').addEventListener('submit', function(e) {
   e.preventDefault();
 
-  const name=document.getElementById('guestName').value.trim();
-  const wishes=document.getElementById('wishes').value.trim();
+  const name = document.getElementById('guestName').value.trim();
+  const wishes = document.getElementById('wishes').value.trim();
 
-  if(!name||!wishes)return;
+  if (!name || !wishes) {
+    alert('Please enter your name and wishes.');
+    return;
+  }
 
-  const message=`Wedding wishes for Amaldev & Vandhana
+  const message =
+    'Wedding wishes for Amaldev & Vandhana\n\n' +
+    'Name: ' + name + '\n\n' +
+    'Wishes Message:\n' + wishes;
 
-Name: ${name}
+  const url =
+    'https://api.whatsapp.com/send?phone=918606711153&text=' +
+    encodeURIComponent(message);
 
-Wishes Message:
-${wishes}`;
-
-  const url='https://wa.me/918606711153?text='+encodeURIComponent(message);
-  window.open(url,'_blank');
+  window.location.href = url;
 });
-  });
+  
 })();
 </script>
 </body>
